@@ -1,0 +1,12 @@
+fp-info-cache
+*.bak
+*.kicad_pcb-bak
+*.sch-bak
+$*
+*.o
+*.s
+*.i
+*.hex
+*.net
+*.elf
+a.out

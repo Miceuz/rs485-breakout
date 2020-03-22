@@ -1,0 +1,816 @@
+EESchema Schematic File Version 5
+EELAYER 32 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "RS485 soil moisture sensor"
+Date "2019-10-22"
+Rev ""
+Comp "Catnip electronics"
+Comment1 "by Albertas Mickėnas mic@wemakethings.net"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+Comment5 ""
+Comment6 ""
+Comment7 ""
+Comment8 ""
+Comment9 ""
+$EndDescr
+Connection ~ 4850 4500
+Connection ~ 4850 1400
+Connection ~ 5150 1850
+Connection ~ 6800 2350
+Connection ~ 4850 1850
+Connection ~ 4200 1850
+Connection ~ 6550 2350
+Connection ~ 5750 3600
+Connection ~ 5950 4000
+Connection ~ 4550 4200
+Connection ~ 5150 4200
+Connection ~ 700  3100
+Connection ~ 5900 1400
+Connection ~ 5950 3500
+Connection ~ 3350 4800
+Connection ~ 2000 1200
+Connection ~ 1900 1500
+Connection ~ 7300 5600
+Connection ~ 7300 5800
+Wire Wire Line
+	1300 1000 1600 1000
+Wire Wire Line
+	1300 1100 1600 1100
+Wire Wire Line
+	1300 1200 2000 1200
+Wire Wire Line
+	1300 1300 1900 1300
+Wire Wire Line
+	1300 1400 2000 1400
+Wire Wire Line
+	1300 1500 1900 1500
+Wire Wire Line
+	1300 1600 1600 1600
+Wire Wire Line
+	1300 1700 1600 1700
+Wire Wire Line
+	1900 1300 1900 1500
+Wire Wire Line
+	1900 1500 1900 1800
+Wire Wire Line
+	2000 1100 2000 1200
+Wire Wire Line
+	2000 1200 2000 1400
+Wire Wire Line
+	2800 3200 6150 3200
+Wire Wire Line
+	2800 3300 6150 3300
+Wire Wire Line
+	2800 3400 4300 3400
+Wire Wire Line
+	2800 3500 3900 3500
+Wire Wire Line
+	2800 3600 3900 3600
+Wire Wire Line
+	2800 3700 3900 3700
+Wire Wire Line
+	2800 3800 3900 3800
+Wire Wire Line
+	2800 4000 5150 4000
+Wire Wire Line
+	2800 4100 4550 4100
+Wire Wire Line
+	2800 4200 3900 4200
+Wire Wire Line
+	2800 4300 3350 4300
+Wire Wire Line
+	2900 650  2900 1050
+Wire Wire Line
+	2950 1850 4200 1850
+Wire Wire Line
+	3050 750  3050 1050
+Wire Wire Line
+	3200 650  2900 650 
+Wire Wire Line
+	3200 750  3050 750 
+Wire Wire Line
+	3350 4300 3350 4800
+Wire Wire Line
+	3850 1150 3850 1400
+Wire Wire Line
+	3850 1400 4000 1400
+Wire Wire Line
+	4200 1700 4200 1850
+Wire Wire Line
+	4200 1850 4850 1850
+Wire Wire Line
+	4300 3500 4300 3400
+Wire Wire Line
+	4300 3500 5950 3500
+Wire Wire Line
+	4300 7000 4700 7000
+Wire Wire Line
+	4400 1400 4850 1400
+Wire Wire Line
+	4450 3100 2800 3100
+Wire Wire Line
+	4450 3100 4450 3600
+Wire Wire Line
+	4450 3600 5750 3600
+Wire Wire Line
+	4550 4100 4550 4200
+Wire Wire Line
+	4550 4500 4850 4500
+Wire Wire Line
+	4700 7100 4300 7100
+Wire Wire Line
+	4700 7200 4300 7200
+Wire Wire Line
+	4850 1700 4850 1850
+Wire Wire Line
+	4850 1850 5150 1850
+Wire Wire Line
+	4850 4500 5150 4500
+Wire Wire Line
+	5150 1850 5150 1600
+Wire Wire Line
+	5150 1850 5900 1850
+Wire Wire Line
+	5150 4000 5150 4200
+Wire Wire Line
+	5200 7100 5600 7100
+Wire Wire Line
+	5450 1400 5900 1400
+Wire Wire Line
+	5750 2350 5750 2800
+Wire Wire Line
+	5750 2350 6550 2350
+Wire Wire Line
+	5750 3100 5750 3600
+Wire Wire Line
+	5750 3600 6150 3600
+Wire Wire Line
+	5900 1400 5900 1250
+Wire Wire Line
+	5900 1850 5900 1700
+Wire Wire Line
+	5950 3500 6150 3500
+Wire Wire Line
+	5950 3700 5950 3500
+Wire Wire Line
+	5950 4000 6550 4000
+Wire Wire Line
+	6150 4900 7300 4900
+Wire Wire Line
+	6150 5000 6600 5000
+Wire Wire Line
+	6150 5100 7250 5100
+Wire Wire Line
+	6150 5200 7250 5200
+Wire Wire Line
+	6150 5300 7250 5300
+Wire Wire Line
+	6150 5400 7250 5400
+Wire Wire Line
+	6150 5500 7250 5500
+Wire Wire Line
+	6150 5600 7300 5600
+Wire Wire Line
+	6150 5700 7450 5700
+Wire Wire Line
+	6150 5800 7300 5800
+Wire Wire Line
+	6550 2350 6800 2350
+Wire Wire Line
+	6550 3000 6550 2350
+Wire Wire Line
+	6550 4000 6550 3800
+Wire Wire Line
+	6600 5000 6600 4700
+Wire Wire Line
+	6950 3300 7450 3300
+Wire Wire Line
+	6950 3500 7450 3500
+Wire Wire Line
+	7300 5600 7300 4900
+Wire Wire Line
+	7300 5800 7300 5600
+Wire Wire Line
+	7300 5800 7400 5800
+Text Label 1600 1000 2    50   ~ 0
+RS485B
+Text Label 1600 1100 2    50   ~ 0
+RS485A
+Text Label 1600 1600 2    50   ~ 0
+RS485B
+Text Label 1600 1700 2    50   ~ 0
+RS485A
+Text Label 3200 650  0    50   ~ 0
+RS485A
+Text Label 3200 750  0    50   ~ 0
+RS485B
+Text Label 3350 4300 2    50   ~ 0
+RESET
+Text Label 3900 3100 2    50   ~ 0
+~RS485_READER_ENABLE
+Text Label 3900 3200 2    50   ~ 0
+TX
+Text Label 3900 3300 2    50   ~ 0
+RX
+Text Label 3900 3400 2    50   ~ 0
+RS485_DRIVER_ENABLE
+Text Label 3900 3500 2    50   ~ 0
+SCK{slash}SCL
+Text Label 3900 3600 2    50   ~ 0
+MISO
+Text Label 3900 3700 2    50   ~ 0
+MOSI{slash}SDA
+Text Label 3900 3800 2    50   ~ 0
+ADC7{slash}OC2B
+Text Label 3900 4200 2    50   ~ 0
+ADC8{slash}OC2A
+Text Label 4300 7000 0    50   ~ 0
+MISO
+Text Label 4300 7100 0    50   ~ 0
+SCK{slash}SCL
+Text Label 4300 7200 0    50   ~ 0
+RESET
+Text Label 5600 7100 2    50   ~ 0
+MOSI{slash}SDA
+Text Label 7250 5100 2    50   ~ 0
+SCK{slash}SCL
+Text Label 7250 5200 2    50   ~ 0
+MISO
+Text Label 7250 5300 2    50   ~ 0
+MOSI{slash}SDA
+Text Label 7250 5400 2    50   ~ 0
+ADC7{slash}OC2B
+Text Label 7250 5500 2    50   ~ 0
+ADC8{slash}OC2A
+Text Label 7450 3300 2    50   ~ 0
+RS485A
+Text Label 7450 3500 2    50   ~ 0
+RS485B
+$Comp
+L power:+3V3 #PWR01
+U 1 1 58946A8E
+P 700 3100
+F 0 "#PWR01" H -2100 2150 50  0001 C CNN
+F 1 "+3V3" H 715 3273 50  0000 C CNN
+F 2 "" H -2100 2300 60  0000 C CNN
+F 3 "" H -2100 2300 60  0000 C CNN
+	1    700  3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR0104
+U 1 1 5E7BC935
+P 2000 1100
+F 0 "#PWR0104" H 2000 950 60  0001 C CNN
+F 1 "VCC" H 2000 1250 60  0000 C CNN
+F 2 "" H 2000 1100 60  0000 C CNN
+F 3 "" H 2000 1100 60  0000 C CNN
+	1    2000 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR04
+U 1 1 58971B39
+P 2750 1050
+F 0 "#PWR04" H 2750 900 60  0001 C CNN
+F 1 "VCC" H 2750 1200 60  0000 C CNN
+F 2 "" H 2750 1050 60  0000 C CNN
+F 3 "" H 2750 1050 60  0000 C CNN
+	1    2750 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR05
+U 1 1 58972379
+P 3200 1050
+F 0 "#PWR05" H 3200 900 60  0001 C CNN
+F 1 "VCC" H 3200 1200 60  0000 C CNN
+F 2 "" H 3200 1050 60  0000 C CNN
+F 3 "" H 3200 1050 60  0000 C CNN
+	1    3200 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR010
+U 1 1 58947B36
+P 3650 4800
+F 0 "#PWR010" H 850 3850 50  0001 C CNN
+F 1 "+3V3" H 3800 4900 50  0000 C CNN
+F 2 "" H 850 4000 60  0000 C CNN
+F 3 "" H 850 4000 60  0000 C CNN
+	1    3650 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR06
+U 1 1 54D21DD5
+P 3850 1150
+F 0 "#PWR06" H 3850 1000 60  0001 C CNN
+F 1 "VCC" H 3850 1300 60  0000 C CNN
+F 2 "" H 3850 1150 60  0000 C CNN
+F 3 "" H 3850 1150 60  0000 C CNN
+	1    3850 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR014
+U 1 1 589472AD
+P 5200 7000
+F 0 "#PWR014" H 2400 6050 50  0001 C CNN
+F 1 "+3V3" H 5215 7173 50  0000 C CNN
+F 2 "" H 2400 6200 60  0000 C CNN
+F 3 "" H 2400 6200 60  0000 C CNN
+	1    5200 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR012
+U 1 1 5894698F
+P 5900 1250
+F 0 "#PWR012" H 3100 300 50  0001 C CNN
+F 1 "+3V3" H 5915 1423 50  0000 C CNN
+F 2 "" H 3100 450 60  0000 C CNN
+F 3 "" H 3100 450 60  0000 C CNN
+	1    5900 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR0101
+U 1 1 5E778261
+P 6600 4700
+F 0 "#PWR0101" H 3800 3750 50  0001 C CNN
+F 1 "+3V3" H 6615 4873 50  0000 C CNN
+F 2 "" H 3800 3900 60  0000 C CNN
+F 3 "" H 3800 3900 60  0000 C CNN
+	1    6600 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3V3 #PWR017
+U 1 1 58946C25
+P 6800 2350
+F 0 "#PWR017" H 4000 1400 50  0001 C CNN
+F 1 "+3V3" H 6815 2523 50  0000 C CNN
+F 2 "" H 4000 1550 60  0000 C CNN
+F 3 "" H 4000 1550 60  0000 C CNN
+	1    6800 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR0103
+U 1 1 5E778EE7
+P 7450 5700
+F 0 "#PWR0103" H 7450 5550 60  0001 C CNN
+F 1 "VCC" H 7450 5850 60  0000 C CNN
+F 2 "" H 7450 5700 60  0000 C CNN
+F 3 "" H 7450 5700 60  0000 C CNN
+	1    7450 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Fiducial FID1
+U 1 1 5E7F8D4D
+P 3000 6900
+F 0 "FID1" H 3085 6855 50  0000 L CNN
+F 1 "Fiducial" H 3085 6945 50  0000 L CNN
+F 2 "Fiducials:Fiducial_1mm_Dia_2mm_Outer" H 3000 6900 50  0001 C CNN
+F 3 "~" H 3000 6900 50  0001 C CNN
+	1    3000 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:Fiducial FID2
+U 1 1 5E7F9AD8
+P 3000 7100
+F 0 "FID2" H 3085 7055 50  0000 L CNN
+F 1 "Fiducial" H 3085 7145 50  0000 L CNN
+F 2 "Fiducials:Fiducial_1mm_Dia_2mm_Outer" H 3000 7100 50  0001 C CNN
+F 3 "~" H 3000 7100 50  0001 C CNN
+	1    3000 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 54D21F25
+P 700 3400
+F 0 "#PWR02" H 700 3150 60  0001 C CNN
+F 1 "GND" H 700 3250 60  0000 C CNN
+F 2 "" H 700 3400 60  0000 C CNN
+F 3 "" H 700 3400 60  0000 C CNN
+	1    700  3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 54D21DE7
+P 700 4300
+F 0 "#PWR03" H 700 4050 60  0001 C CNN
+F 1 "GND" H 700 4150 60  0000 C CNN
+F 2 "" H 700 4300 60  0000 C CNN
+F 3 "" H 700 4300 60  0000 C CNN
+	1    700  4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 5E7C8629
+P 1900 1800
+F 0 "#PWR0105" H 1900 1550 60  0001 C CNN
+F 1 "GND" H 1900 1650 60  0000 C CNN
+F 2 "" H 1900 1800 60  0000 C CNN
+F 3 "" H 1900 1800 60  0000 C CNN
+	1    1900 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 54DF1D84
+P 3350 5100
+F 0 "#PWR09" H 3350 4850 60  0001 C CNN
+F 1 "GND" H 3350 4950 60  0000 C CNN
+F 2 "" H 3350 5100 60  0000 C CNN
+F 3 "" H 3350 5100 60  0000 C CNN
+	1    3350 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR013
+U 1 1 54D21A04
+P 4850 4500
+F 0 "#PWR013" H 4850 4250 60  0001 C CNN
+F 1 "GND" H 4850 4350 60  0000 C CNN
+F 2 "" H 4850 4500 60  0000 C CNN
+F 3 "" H 4850 4500 60  0000 C CNN
+	1    4850 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR011
+U 1 1 58946682
+P 5150 1850
+F 0 "#PWR011" H 5150 1600 60  0001 C CNN
+F 1 "GND" H 5150 1700 60  0000 C CNN
+F 2 "" H 5150 1850 60  0000 C CNN
+F 3 "" H 5150 1850 60  0000 C CNN
+	1    5150 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR015
+U 1 1 54D22F14
+P 5200 7200
+F 0 "#PWR015" H 5200 6950 60  0001 C CNN
+F 1 "GND" H 5200 7050 60  0000 C CNN
+F 2 "" H 5200 7200 60  0000 C CNN
+F 3 "" H 5200 7200 60  0000 C CNN
+	1    5200 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR016
+U 1 1 54DF15E6
+P 5950 4000
+F 0 "#PWR016" H 5950 3750 60  0001 C CNN
+F 1 "GND" H 5950 3850 60  0000 C CNN
+F 2 "" H 5950 4000 60  0000 C CNN
+F 3 "" H 5950 4000 60  0000 C CNN
+	1    5950 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR018
+U 1 1 54DF0CCD
+P 6800 2650
+F 0 "#PWR018" H 6800 2400 60  0001 C CNN
+F 1 "GND" H 6800 2500 60  0000 C CNN
+F 2 "" H 6800 2650 60  0000 C CNN
+F 3 "" H 6800 2650 60  0000 C CNN
+	1    6800 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 5E77954C
+P 7400 5800
+F 0 "#PWR0102" H 7400 5550 60  0001 C CNN
+F 1 "GND" H 7400 5650 60  0000 C CNN
+F 2 "" H 7400 5800 60  0000 C CNN
+F 3 "" H 7400 5800 60  0000 C CNN
+	1    7400 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5E7D6D30
+P 2100 6950
+F 0 "H1" H 2200 6905 50  0000 L CNN
+F 1 "MountingHole" H 2200 6995 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2100 6950 50  0001 C CNN
+F 3 "~" H 2100 6950 50  0001 C CNN
+	1    2100 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 5E7D6E26
+P 2100 7150
+F 0 "H2" H 2200 7105 50  0000 L CNN
+F 1 "MountingHole" H 2200 7195 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2100 7150 50  0001 C CNN
+F 3 "~" H 2100 7150 50  0001 C CNN
+	1    2100 7150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5E7D735A
+P 2100 7350
+F 0 "H3" H 2200 7305 50  0000 L CNN
+F 1 "MountingHole" H 2200 7395 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2100 7350 50  0001 C CNN
+F 3 "~" H 2100 7350 50  0001 C CNN
+	1    2100 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5E7D79FC
+P 2100 7550
+F 0 "H4" H 2200 7505 50  0000 L CNN
+F 1 "MountingHole" H 2200 7595 50  0000 L CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3" H 2100 7550 50  0001 C CNN
+F 3 "~" H 2100 7550 50  0001 C CNN
+	1    2100 7550
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:R R1
+U 1 1 54DF19BF
+P 3500 4800
+F 0 "R1" V 3580 4800 50  0000 C CNN
+F 1 "10k" V 3507 4801 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 3430 4800 30  0001 C CNN
+F 3 "" H 3500 4800 30  0000 C CNN
+	1    3500 4800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:R R3
+U 1 1 58FF80B2
+P 5750 2950
+F 0 "R3" V 5830 2950 50  0000 C CNN
+F 1 "10k" V 5757 2951 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 5680 2950 30  0001 C CNN
+F 3 "" H 5750 2950 30  0000 C CNN
+	1    5750 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:R R9
+U 1 1 58FEF0D0
+P 5950 3850
+F 0 "R9" V 6030 3850 50  0000 C CNN
+F 1 "10k" V 5957 3851 50  0000 C CNN
+F 2 "Resistors_SMD:R_0603" V 5880 3850 30  0001 C CNN
+F 3 "" H 5950 3850 30  0000 C CNN
+	1    5950 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C3
+U 1 1 54D21E5C
+P 700 3250
+F 0 "C3" H 750 3350 50  0000 L CNN
+F 1 "1u" H 750 3150 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 738 3100 30  0001 C CNN
+F 3 "" H 700 3250 60  0000 C CNN
+	1    700  3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C6
+U 1 1 54DF1D15
+P 3350 4950
+F 0 "C6" H 3125 4950 50  0000 L CNN
+F 1 "1u" H 3400 4850 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 3388 4800 30  0001 C CNN
+F 3 "" H 3350 4950 60  0000 C CNN
+	1    3350 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C1
+U 1 1 58F5EE9F
+P 4550 4350
+F 0 "C1" H 4600 4450 50  0000 L CNN
+F 1 "13p" H 4600 4250 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 4588 4200 30  0001 C CNN
+F 3 "" H 4550 4350 60  0000 C CNN
+F 4 "" H 4550 4350 60  0001 C CNN "Distributor"
+	1    4550 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C8
+U 1 1 5894656E
+P 4850 1550
+F 0 "C8" H 4900 1650 50  0000 L CNN
+F 1 "1u" H 4900 1450 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 4888 1400 30  0001 C CNN
+F 3 "" H 4850 1550 60  0000 C CNN
+	1    4850 1550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C2
+U 1 1 54D218DE
+P 5150 4350
+F 0 "C2" H 5200 4450 50  0000 L CNN
+F 1 "13p" H 5200 4250 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 5188 4200 30  0001 C CNN
+F 3 "" H 5150 4350 60  0000 C CNN
+F 4 "" H 5150 4350 60  0001 C CNN "Distributor"
+	1    5150 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C9
+U 1 1 58946780
+P 5900 1550
+F 0 "C9" H 5950 1650 50  0000 L CNN
+F 1 "1u" H 5950 1450 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 5938 1400 30  0001 C CNN
+F 3 "" H 5900 1550 60  0000 C CNN
+	1    5900 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:C C7
+U 1 1 54DF0C76
+P 6800 2500
+F 0 "C7" H 6850 2600 50  0000 L CNN
+F 1 "1u" H 6850 2400 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0603" H 6838 2350 30  0001 C CNN
+F 3 "" H 6800 2500 60  0000 C CNN
+	1    6800 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:CRYSTAL X1
+U 1 1 54D213EA
+P 4850 4200
+F 0 "X1" H 4850 4350 50  0000 C CNN
+F 1 "16MHz" H 4850 4050 50  0000 C CNN
+F 2 "Crystals:Crystal_HC49-SD_SMD" H 4850 4200 60  0001 C CNN
+F 3 "" H 4850 4200 60  0000 C CNN
+F 4 "3TJ416000091040" H 4850 4200 60  0001 C CNN "PartNo"
+F 5 "SHENZHEN JINGYOUJIA ELECTRONIC CO" H 4850 4200 60  0001 C CNN "Manufacturer"
+F 6 "" H 4850 4200 60  0001 C CNN "Distributor"
+	1    4850 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:Q_PMOS_GSD-RESCUE-rs485-moist-sensor Q1
+U 1 1 5894816E
+P 4200 1500
+F 0 "Q1" V 4528 1500 50  0000 C CNN
+F 1 "Q_PMOS_GSD" V 4437 1500 50  0000 C CNN
+F 2 "Housings_SOT-23_SOT-143_TSOT-6:SOT-23" V 4650 1350 29  0001 C CNN
+F 3 "" H 6500 750 60  0000 C CNN
+F 4 "NX2301P" H 4200 1500 60  0001 C CNN "PartNo"
+F 5 "NXP" H 4200 1500 60  0001 C CNN "Manufacturer"
+F 6 "1894738" H 4200 1500 60  0001 C CNN "Distributor"
+	1    4200 1500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:CONN_02X03 P1
+U 1 1 54E0D5F3
+P 4950 7100
+F 0 "P1" H 4950 7300 50  0000 C CNN
+F 1 "CONN_02X03" H 4950 6900 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x03" H 4950 5900 60  0001 C CNN
+F 3 "" H 4950 5900 60  0000 C CNN
+	1    4950 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:MCP1702 U2
+U 1 1 58976A14
+P 5150 1400
+F 0 "U2" H 5150 1771 50  0000 C CNN
+F 1 "MCP1702" H 5150 1680 50  0000 C CNN
+F 2 "Housings_SOT-23_SOT-143_TSOT-6:SOT-23" H 5150 1581 60  0001 C CNN
+F 3 "" H -50 200 60  0000 C CNN
+F 4 "MCP1702T-3302E/CB" H 5150 1400 60  0001 C CNN "PartNo"
+F 5 "MICROCHIP" H 5150 1400 60  0001 C CNN "Manufacturer"
+F 6 "1331490" H 5150 1400 60  0001 C CNN "Distributor"
+	1    5150 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x10 J1
+U 1 1 5E791EED
+P 5950 5300
+F 0 "J1" H 6032 4784 50  0000 C CNN
+F 1 "Conn_01x08" H 6263 5299 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x05_Pitch2.54mm" H 5950 5300 50  0001 C CNN
+F 3 "~" H 5950 5300 50  0001 C CNN
+	1    5950 5300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x10 J3
+U 1 1 5E7CD58F
+P 8650 5050
+F 0 "J3" H 8732 4534 50  0000 C CNN
+F 1 "Conn_01x08" H 8963 5049 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x05_Pitch2.54mm" H 8650 5050 50  0001 C CNN
+F 3 "~" H 8650 5050 50  0001 C CNN
+	1    8650 5050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x10 J4
+U 1 1 5E7D0C71
+P 9000 5050
+F 0 "J4" H 9082 4534 50  0000 C CNN
+F 1 "Conn_01x08" H 9313 5049 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x05_Pitch2.54mm" H 9000 5050 50  0001 C CNN
+F 3 "~" H 9000 5050 50  0001 C CNN
+	1    9000 5050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:TVS-ARRAY D4
+U 1 1 5895AEC2
+P 3000 1400
+F 0 "D4" H 3331 1396 50  0000 L CNN
+F 1 "NUP4004M5T1G" H 3331 1305 50  0000 L CNN
+F 2 "Housings_SOT-23_SOT-143_TSOT-6:SOT-23-5" H 3100 1050 60  0001 C CNN
+F 3 "" V 1900 -50 60  0000 C CNN
+F 4 "NUP4004M5T1G" H 3000 1400 60  0001 C CNN "PartNo"
+F 5 "ON SEMICONDUCTOR" H 3000 1400 60  0001 C CNN "Manufacturer"
+F 6 "2317504" H 3000 1400 60  0001 C CNN "Distributor"
+	1    3000 1400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:RJ45 J2
+U 1 1 5E263AF8
+P 900 1400
+F 0 "J2" H 957 2066 50  0000 C CNN
+F 1 "RJ45" H 957 1975 50  0000 C CNN
+F 2 "Connector_RJ:RJ45_Amphenol_54602-x08_Horizontal" V 900 1425 50  0001 C CNN
+F 3 "~" V 900 1425 50  0001 C CNN
+	1    900  1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:Logo_Open_Hardware_Large #LOGO1
+U 1 1 594784A4
+P 1250 7350
+F 0 "#LOGO1" H 1250 7850 50  0001 C CNN
+F 1 "Logo_Open_Hardware_Large" H 1250 6950 50  0001 C CNN
+F 2 "w_logo:Logo_silk_OSHW_6x6mm" H 1250 7350 50  0001 C CNN
+F 3 "" H 1250 7350 50  0001 C CNN
+F 4 "?" H 1250 7350 60  0001 C CNN "PartNo"
+F 5 "?" H 1250 7350 60  0001 C CNN "Manufacturer"
+F 6 "?" H 1250 7350 60  0001 C CNN "Distributor"
+	1    1250 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:SP3481EN-RESCUE-rs485-moist-sensor U1
+U 1 1 54DF0ADA
+P 6550 3400
+F 0 "U1" H 6250 3750 50  0000 L CNN
+F 1 "SN65HVD72" H 6650 3750 50  0000 L CNN
+F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 6550 3400 50  0001 C CIN
+F 3 "" H 6550 3400 60  0000 C CNN
+F 4 "SN65HVD72DR" H 6550 3400 60  0001 C CNN "PartNo"
+F 5 "TEXAS INSTRUMENTS" H 6550 3400 60  0001 C CNN "Manufacturer"
+F 6 "2542747" H 6550 3400 60  0001 C CNN "Distributor"
+	1    6550 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L rs485-moist-sensor-rescue:ATTINY441-SSU IC1
+U 1 1 58970948
+P 1750 3700
+F 0 "IC1" H 1750 4612 40  0000 C CNN
+F 1 "ATTINY441-SSU" H 1750 4536 40  0000 C CNN
+F 2 "Housings_SOIC:SOIC-14_3.9x8.7mm_Pitch1.27mm" H 1750 4464 35  0001 C CIN
+F 3 "" H -2000 950 60  0000 C CNN
+F 4 "ATTINY441-SSU" H 1750 3700 60  0001 C CNN "PartNo"
+F 5 "MICROCHIP" H 1750 3700 60  0001 C CNN "Manufacturer"
+F 6 "2396717" H 1750 3700 60  0001 C CNN "Distributor"
+	1    1750 3700
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
