@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title "RS485 soil moisture sensor"
-Date "2019-10-22"
-Rev ""
+Title "RS485 breakout board"
+Date "2020-03-22"
+Rev "v1.0"
 Comp "Catnip electronics"
 Comment1 "by Albertas Mickėnas mic@wemakethings.net"
 Comment2 ""

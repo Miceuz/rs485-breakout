@@ -29,8 +29,6 @@ ERC_CheckBusToNetConflicts=1
 version=1
 [PcbFrame]
 version=1
-[sheetnames]
-1=00000000-0000-0000-0000-00005e771f38:
 [pcbnew]
 version=1
 PageLayoutDescrFile=
@@ -296,3 +294,5 @@ dPairGap=0.25
 dPairViaGap=0.25
 [SchematicFrame]
 version=1
+[sheetnames]
+1=00000000-0000-0000-0000-00005e7a8ba9:
