@@ -1,9 +1,9 @@
 # rs485-breakout
 A tiny development board to quickly prototype RS485/Modbus devices
 
-When building RS485/Modbus networks I have realised a need for a platform that would allow me to put various additional sensors or actuators on the network. Like relays to switch stuff, temperature, humidity sensors or other devices that don't have a native Modbus interface.
+When building RS485/Modbus networks I have identified a need for a platform that would allow me to put various additional sensors or actuators on the network. Like relays to switch stuff, temperature, humidity sensors or other devices that don't have a native Modbus interface.
 
-This board allows to interface with different digital busses or analog devices.
+This board allows interfacing to different digital busses or analog devices.
 
 ## Features
 
