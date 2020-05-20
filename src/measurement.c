@@ -1,12 +1,9 @@
 #include <stdbool.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "thermistor.h"
+#include "model.h"
 
-#define CHANNEL_THERMISTOR 3
-#define CHANNEL_CAPACITANCE_HIGH 5
-#define CHANNEL_CAPACITANCE_LOW 7
-#define POWER_TO_DIVIDERS PA6
+#define CHANNEL_ADC7 7
 
 #define STATE_MEASUREMENT_OFF 0
 #define STATE_MEASUREMENT_STABILIZE 1
@@ -17,14 +14,6 @@ volatile uint16_t milliseconds = 0;
 volatile uint16_t *measurementTimeoutMs;
 uint8_t temp;
 
-static inline void powerToDividersEnable() {
-    PORTA |= _BV(POWER_TO_DIVIDERS);
-}
-
-static inline void powerToDividersDisable() {
-    PORTA &= ~_BV(POWER_TO_DIVIDERS);
-}
-
 inline static void adcEnable() {
     ADCSRA |= _BV(ADEN);
 }
@@ -34,11 +23,9 @@ inline static void adcDisable() {
 }
 
 void adcSetup() {
-    DDRA |= _BV(POWER_TO_DIVIDERS);
-
     ADCSRA = _BV(ADEN) | _BV(ADPS2) | _BV(ADPS0);
     ADMUXB = 0;
-    DIDR0 |= _BV(ADC7D) | _BV(ADC5D) | _BV(ADC3D);// | _BV(ADC0D) | _BV(ADC1D) | _BV(ADC2D) | _BV(ADC4D) | _BV(ADC6D) | _BV(ADC8D);
+    DIDR0 |= _BV(ADC7D) | _BV(ADC8D) ;// | _BV(ADC0D) | _BV(ADC1D) | _BV(ADC2D) | _BV(ADC4D) | _BV(ADC6D) | _BV(ADC8D);
 
     ACSR0A = _BV(ACD0); //disable comparators
     ACSR1A = _BV(ACD1);
@@ -80,24 +67,8 @@ ISR(TIMER1_COMPA_vect) {
     milliseconds++;
 }
 
-inline static void excitationEnable() {
-    temp = CLKCR & ~_BV(CKOUTC);
-    CCP = 0xD8;
-    CLKCR = temp;
-}
-
-inline static void excitationDisable() {
-    temp = CLKCR | _BV(CKOUTC);
-    CCP = 0xD8;
-    CLKCR = temp;
-    DDRB |= _BV(PB2);
-    PORTB &= ~_BV(PB2);
-}
-
 void measurementReset() {
-    powerToDividersDisable();
     adcDisable();
-    excitationDisable();
     startMeasurementTimer();
     measurementState = STATE_MEASUREMENT_OFF;
 }
@@ -107,12 +78,10 @@ bool isMeasurementInProgress() {
 }
 
 inline static void measurementPeripheryOn() {
-    powerToDividersEnable();
     adcEnable();
-    excitationEnable();
 }
 
-void processMeasurements(uint16_t *ptrMoisture, int16_t *ptrTemperature) {
+void processMeasurements(t_InputRegisters inputRegisters) {
     switch(measurementState) {
         case STATE_MEASUREMENT_OFF:
             if(isTimeToMeasure()) {
@@ -128,12 +97,9 @@ void processMeasurements(uint16_t *ptrMoisture, int16_t *ptrTemperature) {
             break;
 
         case STATE_MEASUREMENT_IN_PROGRESS: {      
-            uint16_t thermistor = adcReadChannel(CHANNEL_THERMISTOR);
-            *ptrTemperature = thermistorLsbToTemperature(thermistor);
+            uint16_t adc7 = adcReadChannel(CHANNEL_ADC7);
+            inputRegisters.asStruct.adc7 = adc7;
             
-            uint16_t caph = adcReadChannel(CHANNEL_CAPACITANCE_HIGH);
-            uint16_t capl = adcReadChannel(CHANNEL_CAPACITANCE_LOW);
-            *ptrMoisture = 1023 - (caph - capl);
             measurementReset();
             }
             break;
@@ -148,10 +114,10 @@ inline static void forceStartMeasurement() {
     measurementState = STATE_MEASUREMENT_STABILIZE;
 }
 
-void performMeasurement(uint16_t *ptrMoisture, int16_t *ptrTemperature) {
+void performMeasurement(t_InputRegisters inputRegisters) {
     forceStartMeasurement();
     while(isMeasurementInProgress()) {
-        processMeasurements(ptrMoisture, ptrTemperature);
+        processMeasurements(inputRegisters);
     }
 }
 

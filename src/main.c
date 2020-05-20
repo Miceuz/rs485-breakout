@@ -18,31 +18,18 @@ Versioning number structure:
 #include <stdio.h>
 #include <avr/sleep.h>
 #include "modbus.h"
+#include "model.h"
 #include <avr/eeprom.h>
 #include <measurement.h>
 
-#define DRIVER_ENABLE PA4
+#define DRIVER_ENABLE PA3
 #define READER_ENABLE PA0
 
-volatile union{
-            uint16_t asArray[3];
-            struct {
-                uint16_t moisture;
-                int16_t temperature;
-                uint16_t fwVersion;
-            } asStruct;
-        } inputRegisters;
 
-volatile union{
-            uint16_t asArray[5];
-            struct {
-                uint16_t address;
-                uint16_t baud;
-                uint16_t parity;
-                uint16_t measurementIntervalMs;
-                uint16_t sleepTimeS;
-            } asStruct;
-        } holdingRegisters;
+volatile t_InputRegisters inputRegisters;
+
+
+volatile t_HoldingRegisters holdingRegisters;
 
 uint8_t eeprom_address EEMEM = 1;
 uint8_t eeprom_baudIdx EEMEM = 4;
@@ -244,8 +231,7 @@ void sleep() {
     wdtInterruptDisable();
     wdtSetTimeout(WDT_TIMEOUT_DEFAULT);
 
-    performMeasurement((uint16_t*) &(inputRegisters.asStruct.moisture), 
-                            (uint16_t*) &(inputRegisters.asStruct.temperature));
+    performMeasurement(inputRegisters);
 
     UCSR0B |= _BV(TXEN0);
     serialReaderEnable();
@@ -314,14 +300,12 @@ void main (void) {
     sei();    
     timer1msStart(&(holdingRegisters.asStruct.measurementIntervalMs));
 
-    performMeasurement((uint16_t*) &(inputRegisters.asStruct.moisture), 
-                            (uint16_t*) &(inputRegisters.asStruct.temperature));
+    performMeasurement(inputRegisters);
 
     serialReaderEnable();
 
     while(1) {
-        processMeasurements((uint16_t*) &(inputRegisters.asStruct.moisture), 
-                            (uint16_t*) &(inputRegisters.asStruct.temperature));
+        processMeasurements(inputRegisters);
         modbusGet();
 
         if(isSleepTimeSet() && modbusIsIdle() && modbusIsTXComplete()) {

@@ -1,9 +1,10 @@
 #ifndef __MEASUREMENT_H
 #define __MEASUREMENT_H
+#include "model.h"
 
 void adcSetup();
-void performMeasurement(uint16_t *ptrMoisture, int16_t *ptrTemperature);
-void processMeasurements(uint16_t *ptrMoisture, int16_t *ptrTemperature);
+void performMeasurement(t_InputRegisters);
+void processMeasurements(t_InputRegisters);
 void timer1msStart(volatile uint16_t *ptrToTimeout);
 void measurementReset();
 #endif
