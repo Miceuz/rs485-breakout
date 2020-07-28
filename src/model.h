@@ -7,7 +7,7 @@ typedef union {
   uint16_t asArray[3];
   struct {
     uint16_t adc7;
-    uint16_t dummy;
+    uint16_t adc8;
     uint16_t fwVersion;
   } asStruct;
 } t_InputRegisters;

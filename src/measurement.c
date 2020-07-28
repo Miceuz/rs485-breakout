@@ -5,6 +5,7 @@
 #include "model.h"
 
 #define CHANNEL_ADC7 7
+#define CHANNEL_ADC8 8
 
 #define STATE_MEASUREMENT_OFF 0
 #define STATE_MEASUREMENT_STABILIZE 1
@@ -22,8 +23,8 @@ inline static void adcDisable() { ADCSRA &= ~_BV(ADEN); }
 void adcSetup() {
   ADCSRA = _BV(ADEN) | _BV(ADPS2) | _BV(ADPS0);
   ADMUXB = 0;
-  DIDR0 |= _BV(ADC7D);
-  //    | _BV(ADC8D);  // | _BV(ADC0D) | _BV(ADC1D) | _BV(ADC2D) | _BV(ADC4D) |
+  DIDR0 |= _BV(ADC7D) |
+           _BV(ADC8D);  // | _BV(ADC0D) | _BV(ADC1D) | _BV(ADC2D) | _BV(ADC4D) |
   // _BV(ADC6D) | _BV(ADC8D);
 
   ACSR0A = _BV(ACD0);  // disable comparators
@@ -93,7 +94,9 @@ void processMeasurements(t_InputRegisters inputRegisters) {
 
     case STATE_MEASUREMENT_IN_PROGRESS: {
       uint16_t adc7 = adcReadChannel(CHANNEL_ADC7);
+      uint16_t adc8 = adcReadChannel(CHANNEL_ADC8);
       inputRegisters.asStruct.adc7 = adc7;
+      inputRegisters.asStruct.adc8 = adc8;
 
       measurementReset();
     } break;
