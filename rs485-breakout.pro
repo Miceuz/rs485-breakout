@@ -1,4 +1,4 @@
-update=Sun 22 Mar 2020 10:35:04 AM EET
+update=Thu 09 Apr 2020 08:55:28 PM EEST
 version=1
 last_client=kicad
 [cvpcb]
@@ -29,6 +29,10 @@ ERC_CheckBusToNetConflicts=1
 version=1
 [PcbFrame]
 version=1
+[SchematicFrame]
+version=1
+[sheetnames]
+1=00000000-0000-0000-0000-00005e7a8ba9:
 [pcbnew]
 version=1
 PageLayoutDescrFile=
@@ -292,7 +296,3 @@ uViaDrill=0.127
 dPairWidth=0.254
 dPairGap=0.25
 dPairViaGap=0.25
-[SchematicFrame]
-version=1
-[sheetnames]
-1=00000000-0000-0000-0000-00005e7a8ba9:
