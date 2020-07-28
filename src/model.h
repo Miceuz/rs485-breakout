@@ -15,13 +15,14 @@ typedef union {
 // Holding registers are read/write registers.
 // Use these registers to configure the device and control actuators.
 typedef union {
-  uint16_t asArray[5];
+  uint16_t asArray[6];
   struct {
     uint16_t address;               // register number 0
     uint16_t baud;                  // register number 1
     uint16_t parity;                // register number 2
     uint16_t measurementIntervalMs; // register number 3
     uint16_t sleepTimeS;            // register number 4
+    uint16_t gpio;                  // register number 5
   } asStruct;
 } t_HoldingRegisters;
 
