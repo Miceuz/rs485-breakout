@@ -34,7 +34,7 @@ volatile t_HoldingRegisters holdingRegisters;
 uint8_t eeprom_address EEMEM = 1;
 uint8_t eeprom_baudIdx EEMEM = 4;
 uint8_t eeprom_parityIdx EEMEM = 0;
-uint16_t eeprom_measurementIntervalMs EEMEM = 100;
+uint16_t eeprom_measurementIntervalMs EEMEM = 500;
 
 uint8_t temp = 0;
 
@@ -112,7 +112,7 @@ void saveByteAndReset(uint8_t *eeprom, uint8_t value) {
  * 2 - MOSI/SDA/PA6
  **/
 
-static inline gpioControll() {
+static inline void gpioControll() {
   DDRA |= _BV(PA4) | _BV(PA5) | _BV(PA6);
   if (holdingRegisters.asStruct.gpio & 0x00000001) {
     PORTA |= _BV(PA4);
@@ -254,7 +254,7 @@ void sleep() {
   wdtInterruptDisable();
   wdtSetTimeout(WDT_TIMEOUT_DEFAULT);
 
-  performMeasurement(inputRegisters);
+  performMeasurement(&inputRegisters);
 
   UCSR0B |= _BV(TXEN0);
   serialReaderEnable();
@@ -321,12 +321,12 @@ void main(void) {
   sei();
   timer1msStart(&(holdingRegisters.asStruct.measurementIntervalMs));
 
-  performMeasurement(inputRegisters);
+  performMeasurement(&inputRegisters);
 
   serialReaderEnable();
 
   while (1) {
-    processMeasurements(inputRegisters);
+    processMeasurements(&inputRegisters);
     modbusGet();
 
     if (isSleepTimeSet() && modbusIsIdle() && modbusIsTXComplete()) {

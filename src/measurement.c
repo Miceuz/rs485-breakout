@@ -79,7 +79,7 @@ bool isMeasurementInProgress() {
 
 inline static void measurementPeripheryOn() { adcEnable(); }
 
-void processMeasurements(t_InputRegisters inputRegisters) {
+void processMeasurements(t_InputRegisters *inputRegisters) {
   switch (measurementState) {
     case STATE_MEASUREMENT_OFF:
       if (isTimeToMeasure()) {
@@ -96,9 +96,9 @@ void processMeasurements(t_InputRegisters inputRegisters) {
 
     case STATE_MEASUREMENT_IN_PROGRESS: {
       uint16_t adc7 = adcReadChannel(CHANNEL_ADC7);
-      // uint16_t adc8 = adcReadChannel(CHANNEL_ADC8);
-      inputRegisters.asStruct.adc7 = adc7;
-      // inputRegisters.asStruct.adc8 = adc8;
+      uint16_t adc8 = adcReadChannel(CHANNEL_ADC8);
+      inputRegisters->asStruct.adc7 = adc7;
+      inputRegisters->asStruct.adc8 = adc8;
 
       measurementReset();
     } break;
@@ -113,7 +113,7 @@ inline static void forceStartMeasurement() {
   measurementState = STATE_MEASUREMENT_STABILIZE;
 }
 
-void performMeasurement(t_InputRegisters inputRegisters) {
+void performMeasurement(t_InputRegisters *inputRegisters) {
   forceStartMeasurement();
   while (isMeasurementInProgress()) {
     processMeasurements(inputRegisters);
