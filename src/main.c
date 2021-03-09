@@ -16,13 +16,16 @@ Versioning number structure:
 #include <avr/io.h>
 #include <avr/sleep.h>
 #include <inttypes.h>
-#include <measurement.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <util/delay.h>
 
+#include "dps310.h"
+#include "measurement.h"
 #include "modbus.h"
 #include "model.h"
+#include "sht25.h"
+#include "twi_master.h"
 
 #define DRIVER_ENABLE PA3
 #define READER_ENABLE PA0
@@ -57,7 +60,7 @@ void transceiver_txen(void) { serialDriverEnable(); }
 void transceiver_rxen(void) { serialReaderEnable(); }
 
 inline static void reset() {
-  WDTCSR = _BV(WDE);  // reset in 16ms
+  WDTCSR = _BV(WDE); // reset in 16ms
   while (1)
     ;
 }
@@ -94,10 +97,6 @@ inline static bool isSleepTimeSet() {
   return 0 != holdingRegisters.asStruct.sleepTimeS;
 }
 
-static inline bool isGpioRegisterSet() {
-  return 5 == modbusGetRegisterNumber();
-}
-
 void saveByteAndReset(uint8_t *eeprom, uint8_t value) {
   eeprom_write_byte(eeprom, value);
   while (!modbusIsIdle()) {
@@ -106,70 +105,42 @@ void saveByteAndReset(uint8_t *eeprom, uint8_t value) {
   reset();
 }
 
-/**
- * 0 - SCL/SCK/PA4
- * 1 - MISO/PA5
- * 2 - MOSI/SDA/PA6
- **/
-
-static inline void gpioControll() {
-  DDRA |= _BV(PA4) | _BV(PA5) | _BV(PA6);
-  if (holdingRegisters.asStruct.gpio & 0x00000001) {
-    PORTA |= _BV(PA4);
-  } else {
-    PORTA &= ~_BV(PA4);
-  }
-  if (holdingRegisters.asStruct.gpio & 0x00000002) {
-    PORTA |= _BV(PA5);
-  } else {
-    PORTA &= ~_BV(PA5);
-  }
-  if (holdingRegisters.asStruct.gpio & 0x00000004) {
-    PORTA |= _BV(PA6);
-  } else {
-    PORTA &= ~_BV(PA6);
-  }
-}
-
-void modbusGet(void) {
+static inline void modbusGet(void) {
   if (modbusIsFrameAvailable()) {
     switch (modbusGetFunctionCode()) {
-      case fcReadHoldingRegisters: {
-        modbusExchangeRegisters(holdingRegisters.asArray, 6);
-      } break;
+    case fcReadHoldingRegisters: {
+      modbusExchangeRegisters(holdingRegisters.asArray, 6);
+    } break;
 
-      case fcReadInputRegisters: {
-        modbusExchangeRegisters(inputRegisters.asArray, 3);
-      } break;
+    case fcReadInputRegisters: {
+      modbusExchangeRegisters(inputRegisters.asArray, 4);
+    } break;
 
-        //            case fcPresetMultipleRegisters:
-      case fcPresetSingleRegister: {
-        modbusExchangeRegisters(holdingRegisters.asArray, 6);
-        if (isAddressRegisterSet()) {
-          if (isValidAddress(holdingRegisters.asStruct.address)) {
-            saveByteAndReset(&eeprom_address,
-                             holdingRegisters.asStruct.address);
-          }
-        } else if (isBaudRegisterSet()) {
-          if (isValidBaud(holdingRegisters.asStruct.baud)) {
-            saveByteAndReset(&eeprom_baudIdx, holdingRegisters.asStruct.baud);
-          }
-        } else if (isParityRegisterSet()) {
-          if (isValidParity(holdingRegisters.asStruct.parity)) {
-            saveByteAndReset(&eeprom_parityIdx,
-                             holdingRegisters.asStruct.parity);
-          }
-        } else if (isMeasurementIntervalRegisterSet()) {
-          eeprom_write_word(&eeprom_measurementIntervalMs,
-                            holdingRegisters.asStruct.measurementIntervalMs);
-        } else if (isGpioRegisterSet()) {
-          gpioControll();
+      //            case fcPresetMultipleRegisters:
+    case fcPresetSingleRegister: {
+      modbusExchangeRegisters(holdingRegisters.asArray, 6);
+      if (isAddressRegisterSet()) {
+        if (isValidAddress(holdingRegisters.asStruct.address)) {
+          saveByteAndReset(&eeprom_address, holdingRegisters.asStruct.address);
         }
-      } break;
+      } else if (isBaudRegisterSet()) {
+        // if (isValidBaud(holdingRegisters.asStruct.baud)) {
+        //   saveByteAndReset(&eeprom_baudIdx, holdingRegisters.asStruct.baud);
+        // }
+      } else if (isParityRegisterSet()) {
+        // if (isValidParity(holdingRegisters.asStruct.parity)) {
+        //   saveByteAndReset(&eeprom_parityIdx,
+        //   holdingRegisters.asStruct.parity);
+        // }
+      } else if (isMeasurementIntervalRegisterSet()) {
+        // eeprom_write_word(&eeprom_measurementIntervalMs,
+        //                   holdingRegisters.asStruct.measurementIntervalMs);
+      }
+    } break;
 
-      default: {
-        modbusSendException(ecIllegalFunction);
-      } break;
+    default: {
+      modbusSendException(ecIllegalFunction);
+    } break;
     }
   }
 }
@@ -187,7 +158,7 @@ volatile uint16_t secondsToSleep = 0;
 #define WDT_TIMEOUT_64MS 0b00000010
 #define WDT_TIMEOUT_32MS 0b00000001
 #define WDT_TIMEOUT_16MS 0b00000000
-#define WDT_TIMEOUT_DEFAULT WDT_TIMEOUT_0125S
+#define WDT_TIMEOUT_DEFAULT WDT_TIMEOUT_2S
 
 void wdtSetTimeout(uint8_t timeout) {
   timeout |= _BV(WDE);
@@ -218,7 +189,7 @@ static inline void sleepSetup() {
   } else if (secondsToSleep >= 2) {
     wdtSetTimeout(WDT_TIMEOUT_2S);
     sleepTimes = 1;
-    secondsToSleep = 1;  // secondsToSleep - 2;
+    secondsToSleep = 1; // secondsToSleep - 2;
 
   } else if (secondsToSleep == 1) {
     wdtSetTimeout(WDT_TIMEOUT_1S);
@@ -262,10 +233,10 @@ void sleep() {
 
 inline static void saveConfig() {
   eeprom_write_byte(&eeprom_address, holdingRegisters.asStruct.address);
-  eeprom_write_byte(&eeprom_baudIdx, holdingRegisters.asStruct.baud);
-  eeprom_write_byte(&eeprom_parityIdx, holdingRegisters.asStruct.parity);
-  eeprom_write_word(&eeprom_measurementIntervalMs,
-                    holdingRegisters.asStruct.measurementIntervalMs);
+  // eeprom_write_byte(&eeprom_baudIdx, holdingRegisters.asStruct.baud);
+  // eeprom_write_byte(&eeprom_parityIdx, holdingRegisters.asStruct.parity);
+  // eeprom_write_word(&eeprom_measurementIntervalMs,
+  //                   holdingRegisters.asStruct.measurementIntervalMs);
 }
 
 inline static void loadConfig() {
@@ -280,25 +251,25 @@ inline static void loadConfig() {
     holdingRegisters.asStruct.address = 1;
   }
 
-  temp = eeprom_read_byte(&eeprom_baudIdx);
-  if (temp >= 0 && temp < 8) {
-    holdingRegisters.asStruct.baud = temp;
-  } else {
-    holdingRegisters.asStruct.baud = 4;
-  }
+  // temp = eeprom_read_byte(&eeprom_baudIdx);
+  // if (temp >= 0 && temp < 8) {
+  //   holdingRegisters.asStruct.baud = temp;
+  // } else {
+  holdingRegisters.asStruct.baud = 4;
+  // }
 
-  temp = eeprom_read_byte(&eeprom_parityIdx);
-  if (temp >= 0 && temp < 3) {
-    holdingRegisters.asStruct.parity = temp;
-  } else {
-    holdingRegisters.asStruct.parity = 0;
-  }
+  // temp = eeprom_read_byte(&eeprom_parityIdx);
+  // if (temp >= 0 && temp < 3) {
+  //   holdingRegisters.asStruct.parity = temp;
+  // } else {
+  holdingRegisters.asStruct.parity = 0;
+  // }
 
-  holdingRegisters.asStruct.measurementIntervalMs =
-      eeprom_read_word(&eeprom_measurementIntervalMs);
-  if (65535 == holdingRegisters.asStruct.measurementIntervalMs) {
-    holdingRegisters.asStruct.measurementIntervalMs = 500;
-  }
+  // holdingRegisters.asStruct.measurementIntervalMs =
+  //     eeprom_read_word(&eeprom_measurementIntervalMs);
+  // if (65535 == holdingRegisters.asStruct.measurementIntervalMs) {
+  holdingRegisters.asStruct.measurementIntervalMs = 500;
+  // }
 }
 
 void main(void) {
@@ -307,17 +278,27 @@ void main(void) {
   DDRA |= _BV(DRIVER_ENABLE);
   DDRA |= _BV(READER_ENABLE);
 
-  // DDRA |= _BV(PA3);
-  // PINA |= _BV(PA3);
-  // _delay_ms(100);
-  // PINA |= _BV(PA3);
+  DDRA |= _BV(PA5);
+  PORTA &= ~_BV(PA5);
+  asm("WDR");
+  _delay_ms(500);
+  asm("WDR");
+  DDRA &= ~_BV(PA5);
+
+  i2c_init();
+  asm("WDR");
+  sht25_init();
+  asm("WDR");
+  dps310_init();
+  asm("WDR");
 
   loadConfig();
+  asm("WDR");
 
   modbusSetAddress(holdingRegisters.asStruct.address);
   modbusInit(holdingRegisters.asStruct.baud, holdingRegisters.asStruct.parity);
 
-  adcSetup();
+  // adcSetup();
   sei();
   timer1msStart(&(holdingRegisters.asStruct.measurementIntervalMs));
 
@@ -329,9 +310,9 @@ void main(void) {
     processMeasurements(&inputRegisters);
     modbusGet();
 
-    if (isSleepTimeSet() && modbusIsIdle() && modbusIsTXComplete()) {
-      sleep();
-    }
+    // if (isSleepTimeSet() && modbusIsIdle() && modbusIsTXComplete()) {
+    //   sleep();
+    // }
     asm("WDR");
   }
 }

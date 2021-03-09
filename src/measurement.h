@@ -1,10 +1,10 @@
 #ifndef __MEASUREMENT_H
 #define __MEASUREMENT_H
 #include "model.h"
-
+#include "stdint.h"
 void adcSetup();
-void performMeasurement(t_InputRegisters *);
-void processMeasurements(t_InputRegisters *);
+void performMeasurement(volatile t_InputRegisters *);
+void processMeasurements(volatile t_InputRegisters *);
 void timer1msStart(volatile uint16_t *ptrToTimeout);
 void measurementReset();
 #endif

@@ -2,7 +2,9 @@
 #include <avr/io.h>
 #include <stdbool.h>
 
+#include "dps310.h"
 #include "model.h"
+#include "sht25.h"
 
 #define CHANNEL_ADC7 7
 #define CHANNEL_ADC8 8
@@ -29,7 +31,7 @@ void adcSetup() {
   //  | _BV(ADC8D); //Don't disable digital buffer on ADC8D as that disables
   //  UART (woot? silicon errata?)
 
-  ACSR0A = _BV(ACD0);  // disable comparators
+  ACSR0A = _BV(ACD0); // disable comparators
   ACSR1A = _BV(ACD1);
 
   adcDisable();
@@ -77,31 +79,39 @@ bool isMeasurementInProgress() {
   return measurementState != STATE_MEASUREMENT_OFF;
 }
 
-inline static void measurementPeripheryOn() { adcEnable(); }
+inline static void measurementPeripheryOn() {
+  // adcEnable();
+}
 
-void processMeasurements(t_InputRegisters *inputRegisters) {
+void processMeasurements(volatile t_InputRegisters *inputRegisters) {
   switch (measurementState) {
-    case STATE_MEASUREMENT_OFF:
-      if (isTimeToMeasure()) {
-        measurementPeripheryOn();
-        measurementState = STATE_MEASUREMENT_STABILIZE;
-      }
-      break;
+  case STATE_MEASUREMENT_OFF:
+    if (isTimeToMeasure()) {
+      measurementPeripheryOn();
+      measurementState = STATE_MEASUREMENT_STABILIZE;
+    }
+    break;
 
-    case STATE_MEASUREMENT_STABILIZE:
-      if (isTimeToStabilizeOver()) {
-        measurementState = STATE_MEASUREMENT_IN_PROGRESS;
-      }
-      break;
+  case STATE_MEASUREMENT_STABILIZE:
+    if (isTimeToStabilizeOver()) {
+      measurementState = STATE_MEASUREMENT_IN_PROGRESS;
+    }
+    break;
 
-    case STATE_MEASUREMENT_IN_PROGRESS: {
-      uint16_t adc7 = adcReadChannel(CHANNEL_ADC7);
-      uint16_t adc8 = adcReadChannel(CHANNEL_ADC8);
-      inputRegisters->asStruct.adc7 = adc7;
-      inputRegisters->asStruct.adc8 = adc8;
+  case STATE_MEASUREMENT_IN_PROGRESS: {
+    inputRegisters->asStruct.temperature = sht25_read_temperature();
+    inputRegisters->asStruct.humidity = sht25_read_humidity();
 
-      measurementReset();
-    } break;
+    int16_t temp;
+    measureTempOnce(&temp);
+    uint16_t pressure;
+    if (0 == measurePressureOnce(&pressure)) {
+      inputRegisters->asStruct.pressure = pressure;
+    } else {
+      inputRegisters->asStruct.pressure = 1;
+    }
+    measurementReset();
+  } break;
   }
 }
 
@@ -113,7 +123,7 @@ inline static void forceStartMeasurement() {
   measurementState = STATE_MEASUREMENT_STABILIZE;
 }
 
-void performMeasurement(t_InputRegisters *inputRegisters) {
+void performMeasurement(volatile t_InputRegisters *inputRegisters) {
   forceStartMeasurement();
   while (isMeasurementInProgress()) {
     processMeasurements(inputRegisters);

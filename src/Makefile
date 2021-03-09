@@ -7,7 +7,7 @@
 # License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
 # This Revision: $Id: Makefile 692 2008-11-07 15:07:40Z cs $
 
-DEVICE  = attiny441
+DEVICE  = attiny841
 F_CPU   = 16000000	# in Hz
 # 10101111
 # 1 - CKDIV8 - no
@@ -38,7 +38,7 @@ CFLAGS  = -Iusbdrv -I. -DDEBUG_LEVEL=0  -Os -std=gnu99
 CFLAGS += -ffunction-sections -fdata-sections -save-temps 
 LDFLAGS += -Wl,--gc-sections,--relax
 
-OBJECTS = main.o thermistor.o modbus.o measurement.o
+OBJECTS = main.o modbus.o measurement.o twi_master.o sht25.o dps310.o
 
 COMPILE = avr-gcc -DF_CPU=$(F_CPU) $(CFLAGS) $(LDFLAGS) -mmcu=$(DEVICE)  
 
