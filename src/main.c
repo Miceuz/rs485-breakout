@@ -109,16 +109,16 @@ static inline void modbusGet(void) {
   if (modbusIsFrameAvailable()) {
     switch (modbusGetFunctionCode()) {
     case fcReadHoldingRegisters: {
-      modbusExchangeRegisters(holdingRegisters.asArray, 6);
+      modbusExchangeRegisters(holdingRegisters.asArray, HOLDING_REGISTER_COUNT);
     } break;
 
     case fcReadInputRegisters: {
-      modbusExchangeRegisters(inputRegisters.asArray, 4);
+      modbusExchangeRegisters(inputRegisters.asArray, INPUT_REGISTER_COUNT);
     } break;
 
       //            case fcPresetMultipleRegisters:
     case fcPresetSingleRegister: {
-      modbusExchangeRegisters(holdingRegisters.asArray, 6);
+      modbusExchangeRegisters(holdingRegisters.asArray, HOLDING_REGISTER_COUNT);
       if (isAddressRegisterSet()) {
         if (isValidAddress(holdingRegisters.asStruct.address)) {
           saveByteAndReset(&eeprom_address, holdingRegisters.asStruct.address);
@@ -272,18 +272,19 @@ inline static void loadConfig() {
   // }
 }
 
+#define SENSE1 PB2
+#define SENSE2 PA7
+#define SENSE3 PA5
+
 void main(void) {
   wdtSetTimeout(WDT_TIMEOUT_DEFAULT);
 
   DDRA |= _BV(DRIVER_ENABLE);
   DDRA |= _BV(READER_ENABLE);
 
-  DDRA |= _BV(PA5);
-  PORTA &= ~_BV(PA5);
-  asm("WDR");
-  _delay_ms(500);
-  asm("WDR");
-  DDRA &= ~_BV(PA5);
+  DDRB &= ~_BV(SENSE1);
+  DDRA &= ~_BV(SENSE2);
+  DDRA &= ~_BV(SENSE3);
 
   i2c_init();
   asm("WDR");

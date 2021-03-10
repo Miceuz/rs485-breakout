@@ -1,14 +1,18 @@
 #ifndef __MODEL_H
 #define __MODEL_H
 
+#define INPUT_REGISTER_COUNT 5
+#define HOLDING_REGISTER_COUNT 5
+
 // Input registers are read only registers provided by the device.
 // Put your sensor data here
 typedef union {
-  uint16_t asArray[4];
+  uint16_t asArray[INPUT_REGISTER_COUNT];
   struct {
     uint16_t temperature;
     uint16_t humidity;
     uint16_t pressure;
+    uint16_t sense;
     uint16_t fwVersion;
   } asStruct;
 } t_InputRegisters;

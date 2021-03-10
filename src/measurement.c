@@ -9,6 +9,10 @@
 #define CHANNEL_ADC7 7
 #define CHANNEL_ADC8 8
 
+#define SENSE1 PB2
+#define SENSE2 PA7
+#define SENSE3 PA5
+
 #define STATE_MEASUREMENT_OFF 0
 #define STATE_MEASUREMENT_STABILIZE 1
 #define STATE_MEASUREMENT_IN_PROGRESS 2
@@ -110,6 +114,18 @@ void processMeasurements(volatile t_InputRegisters *inputRegisters) {
     } else {
       inputRegisters->asStruct.pressure = 1;
     }
+
+    inputRegisters->asStruct.sense = 0;
+    if (0 == (PINB & _BV(SENSE1))) {
+      inputRegisters->asStruct.sense |= _BV(0);
+    }
+    if (0 == (PINA & _BV(SENSE2))) {
+      inputRegisters->asStruct.sense |= _BV(1);
+    }
+    if (0 == (PINA & _BV(SENSE3))) {
+      inputRegisters->asStruct.sense |= _BV(2);
+    }
+
     measurementReset();
   } break;
   }
